@@ -6,6 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import logo from "../images/dnd.jpg";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -19,7 +20,7 @@ function Home() {
 
   const searchImages = async () => {
     try {
-      setSkeletonLoading(true); 
+      setSkeletonLoading(true);
       const response = await axios.get(API_URL_SEARCH, {
         headers: {
           Authorization: `Client-ID ${API_KEY}`,
@@ -101,8 +102,9 @@ function Home() {
           />
         </div>
         <div className="loginSignup">
-          <button>login</button>
-          <button>signUp</button>
+          <Link to="/login">
+            <button>login</button>
+          </Link>
         </div>
       </nav>
       <DragDropContext onDragEnd={handleDragDrop}>
@@ -113,70 +115,68 @@ function Home() {
               ref={provided.innerRef}
               className="image-grid"
             >
-              {skeletonLoading ? (
-                Array.from({ length: 10 }).map((_, idx) => (
-                  <div className="flex skeleton" key={idx}>
-                    <Skeleton height={250} width={300} />
-                    <Skeleton height={50} width={300} />
-                  </div>
-                ))
-              ) : showSearchResults ? (
-                searchImage.map((index, idx) => (
-                  <Draggable
-                    draggableId={index.id}
-                    key={index.id}
-                    index={idx}
-                  >
-                    {(provided) => (
-                      <div
-                        className="flex"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <div className="dragIcon">
-                          <BiGridVertical color="#fff" />
+              {skeletonLoading
+                ? Array.from({ length: 10 }).map((_, idx) => (
+                    <div className="flex skeleton" key={idx}>
+                      <Skeleton height={250} width={300} />
+                      <Skeleton height={50} width={300} />
+                    </div>
+                  ))
+                : showSearchResults
+                ? searchImage.map((index, idx) => (
+                    <Draggable
+                      draggableId={index.id}
+                      key={index.id}
+                      index={idx}
+                    >
+                      {(provided) => (
+                        <div
+                          className="flex"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <div className="dragIcon">
+                            <BiGridVertical color="#fff" />
+                          </div>
+                          <img
+                            src={index.urls.regular}
+                            alt={index.alt_description}
+                          />
+                          <div className="alt_description">
+                            {index.alt_description}
+                          </div>
                         </div>
-                        <img
-                          src={index.urls.regular}
-                          alt={index.alt_description}
-                        />
-                        <div className="alt_description">
-                          {index.alt_description}
+                      )}
+                    </Draggable>
+                  ))
+                : searchImage.map((index, idx) => (
+                    <Draggable
+                      draggableId={index.id}
+                      key={index.id}
+                      index={idx}
+                    >
+                      {(provided) => (
+                        <div
+                          className="flex"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <div className="dragIcon">
+                            <BiGridVertical color="#fff" />
+                          </div>
+                          <img
+                            src={index.urls.regular}
+                            alt={index.alt_description}
+                          />
+                          <div className="alt_description">
+                            {index.alt_description}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))
-              ) : (
-                searchImage.map((index, idx) => (
-                  <Draggable
-                    draggableId={index.id}
-                    key={index.id}
-                    index={idx}
-                  >
-                    {(provided) => (
-                      <div
-                        className="flex"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <div className="dragIcon">
-                          <BiGridVertical color="#fff" />
-                        </div>
-                        <img
-                          src={index.urls.regular}
-                          alt={index.alt_description}
-                        />
-                        <div className="alt_description">
-                          {index.alt_description}
-                        </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))
-              )}
+                      )}
+                    </Draggable>
+                  ))}
               {provided.placeholder}
             </div>
           )}
