@@ -17,7 +17,7 @@ nav .logo {
   align-items: center;
   gap: 10px;
 }
-nav .logo img{
+nav .logo img {
   width: 50px;
   border-radius: 10px;
 }
@@ -84,15 +84,27 @@ nav .loginSignup button:nth-child(2) {
   box-shadow: 1px 1px 10px 5px #1e1e1e36;
   border-radius: 10px;
 }
-.skeleton{
+.skeleton {
   display: flex;
   flex-direction: column;
   box-shadow: 1px 1px 10px 5px transparent;
   gap: 10px;
 }
+.flex :hover ~ .alt_description {
+  opacity: 1;
+}
 .alt_description {
   padding: 10px;
-  background-color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  width: 100%;
+  background-image: linear-gradient(transparent, #000000c4 60%);
+  opacity: 0;
+  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.alt_description:hover {
+  opacity: 1;
 }
 .dragIcon {
   position: absolute;
@@ -102,17 +114,17 @@ nav .loginSignup button:nth-child(2) {
   padding: 10px;
 }
 @media (max-width: 768px) {
-  nav{
+  nav {
     gap: 10px;
   }
-  .logoText{
+  .logoText {
     display: none;
   }
-  nav .loginSignup{
+  nav .loginSignup {
     width: auto;
     gap: 5px;
   }
-  nav .loginSignup button{
+  nav .loginSignup button {
     padding: 5px 10px;
   }
   .search-input {
