@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 nav {
   display: flex;
@@ -101,7 +102,7 @@ nav .loginSignup button:nth-child(2) {
   width: 100%;
   background-image: linear-gradient(transparent, #000000c4 60%);
   opacity: 0;
-  transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .alt_description:hover {
   opacity: 1;
