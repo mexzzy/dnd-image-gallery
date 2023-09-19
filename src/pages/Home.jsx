@@ -4,11 +4,14 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BiGridVertical } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
 import logo from "../images/dnd.jpg";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function Home() {
   const [query, setQuery] = useState("");
   const [searchImage, setSearchImage] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [skeletonLoading, setSkeletonLoading] = useState(false);
 
   const API_KEY = process.env.REACT_APP_API_KEY;
   const API_URL_SEARCH = "https://api.unsplash.com/search/photos";
@@ -16,6 +19,7 @@ function Home() {
 
   const searchImages = async () => {
     try {
+      setSkeletonLoading(true); 
       const response = await axios.get(API_URL_SEARCH, {
         headers: {
           Authorization: `Client-ID ${API_KEY}`,
@@ -27,6 +31,7 @@ function Home() {
 
       setSearchImage(response.data.results);
       setShowSearchResults(true);
+      setSkeletonLoading(false);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -34,6 +39,7 @@ function Home() {
 
   const loadPhotos = async () => {
     try {
+      setSkeletonLoading(true);
       const response = await axios.get(API_URL_PHOTOS, {
         headers: {
           Authorization: `Client-ID ${API_KEY}`,
@@ -42,6 +48,7 @@ function Home() {
 
       setSearchImage(response.data);
       setShowSearchResults(false);
+      setSkeletonLoading(false);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -106,61 +113,70 @@ function Home() {
               ref={provided.innerRef}
               className="image-grid"
             >
-              {showSearchResults
-                ? searchImage.map((index, idx) => (
-                    <Draggable
-                      draggableId={index.id}
-                      key={index.id}
-                      index={idx}
-                    >
-                      {(provided) => (
-                        <div
-                          className="flex"
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="dragIcon">
-                            <BiGridVertical color="#fff" />
-                          </div>
-                          <img
-                            src={index.urls.regular}
-                            alt={index.alt_description}
-                          />
-                          <div className="alt_description">
-                            {index.alt_description}
-                          </div>
+              {skeletonLoading ? (
+                Array.from({ length: 10 }).map((_, idx) => (
+                  <div className="flex skeleton" key={idx}>
+                    <Skeleton height={250} width={300} />
+                    <Skeleton height={50} width={300} />
+                  </div>
+                ))
+              ) : showSearchResults ? (
+                searchImage.map((index, idx) => (
+                  <Draggable
+                    draggableId={index.id}
+                    key={index.id}
+                    index={idx}
+                  >
+                    {(provided) => (
+                      <div
+                        className="flex"
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                      >
+                        <div className="dragIcon">
+                          <BiGridVertical color="#fff" />
                         </div>
-                      )}
-                    </Draggable>
-                  ))
-                : searchImage.map((index, idx) => (
-                    <Draggable
-                      draggableId={index.id}
-                      key={index.id}
-                      index={idx}
-                    >
-                      {(provided) => (
-                        <div
-                          className="flex"
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="dragIcon">
-                            <BiGridVertical color="#fff" />
-                          </div>
-                          <img
-                            src={index.urls.regular}
-                            alt={index.alt_description}
-                          />
-                          <div className="alt_description">
-                            {index.alt_description}
-                          </div>
+                        <img
+                          src={index.urls.regular}
+                          alt={index.alt_description}
+                        />
+                        <div className="alt_description">
+                          {index.alt_description}
                         </div>
-                      )}
-                    </Draggable>
-                  ))}
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              ) : (
+                searchImage.map((index, idx) => (
+                  <Draggable
+                    draggableId={index.id}
+                    key={index.id}
+                    index={idx}
+                  >
+                    {(provided) => (
+                      <div
+                        className="flex"
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                      >
+                        <div className="dragIcon">
+                          <BiGridVertical color="#fff" />
+                        </div>
+                        <img
+                          src={index.urls.regular}
+                          alt={index.alt_description}
+                        />
+                        <div className="alt_description">
+                          {index.alt_description}
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              )}
               {provided.placeholder}
             </div>
           )}

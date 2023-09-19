@@ -84,6 +84,12 @@ nav .loginSignup button:nth-child(2) {
   box-shadow: 1px 1px 10px 5px #1e1e1e36;
   border-radius: 10px;
 }
+.skeleton{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 10px 5px transparent;
+  gap: 10px;
+}
 .alt_description {
   padding: 10px;
   background-color: #ffffff;
