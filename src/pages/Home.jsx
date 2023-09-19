@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { BiGridVertical } from "react-icons/bi";
+import { CiSearch } from "react-icons/ci";
+import logo from "../images/dnd.jpg"
 
 function Home() {
   const [query, setQuery] = useState("");
   const [searchImage, setSearchImage] = useState([]);
-  const [showSearchResults, setShowSearchResults] = useState(false); // Track whether to show search results
+  const [showSearchResults, setShowSearchResults] = useState(false); 
 
   const API_KEY = "G-oZXsBPZOUB18De3CmvIPUPwS_x_6yFOI0CjWTwFVg";
   const API_URL_SEARCH = "https://api.unsplash.com/search/photos";
@@ -23,7 +26,7 @@ function Home() {
       });
 
       setSearchImage(response.data.results);
-      setShowSearchResults(true); // Show search results
+      setShowSearchResults(true);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -38,7 +41,7 @@ function Home() {
       });
 
       setSearchImage(response.data);
-      setShowSearchResults(false); // Hide search results
+      setShowSearchResults(false);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
@@ -48,7 +51,7 @@ function Home() {
     if (query !== "") {
       searchImages();
     } else {
-      loadPhotos(); // Load photos if the query is empty
+      loadPhotos(); 
     }
   }, [query]);
 
@@ -77,8 +80,9 @@ function Home() {
   return (
     <div>
       <nav>
-        <span className="logo">drag-and-drop image-gallery</span>
+        <span className="logo"><img src={logo} alt="logo" /> <span className="logoText">image-gallery</span></span>
         <div className="search-input">
+          <CiSearch />
           <input
             type="text"
             placeholder="Search for images by tag..."
@@ -88,7 +92,7 @@ function Home() {
         </div>
         <div className="loginSignup">
           <button>login</button>
-          <button>sign up</button>
+          <button>signUp</button>
         </div>
       </nav>
       <DragDropContext onDragEnd={handleDragDrop}>
@@ -96,7 +100,6 @@ function Home() {
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef} className="image-grid">
               {showSearchResults ? (
-                // Render search results with drag and drop
                 searchImage.map((index, idx) => (
                   <Draggable draggableId={index.id} key={index.id} index={idx}>
                     {(provided) => (
@@ -106,6 +109,9 @@ function Home() {
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                       >
+                        <div className="dragIcon">
+                          <BiGridVertical color="#fff" />
+                        </div>
                         <img
                           src={index.urls.regular}
                           alt={index.alt_description}
@@ -118,7 +124,6 @@ function Home() {
                   </Draggable>
                 ))
               ) : (
-                // Render photos from the other endpoint with drag and drop
                 searchImage.map((index, idx) => (
                   <Draggable draggableId={index.id} key={index.id} index={idx}>
                     {(provided) => (
@@ -128,6 +133,9 @@ function Home() {
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                       >
+                        <div className="dragIcon">
+                          <BiGridVertical  color="#fff"/>
+                        </div>
                         <img
                           src={index.urls.regular}
                           alt={index.alt_description}

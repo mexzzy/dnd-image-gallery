@@ -1,63 +1,73 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
-nav{
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1% 5%;
   border-bottom: 1px solid #8888887e;
 }
-nav .logo{
-/* width: 30%; */
-text-transform: capitalize;
-font-weight: bold;
-color: rgb(96, 96, 96);
-}
-.search-input{
-  align-items: center;
-  justify-content: center;
-  width: 50%;
+nav .logo {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: rgb(96, 96, 96);
   display: flex;
+  align-items: center;
+  gap: 10px;
 }
-nav .loginSignup{
+nav .logo img{
+  width: 50px;
+  border-radius: 10px;
+}
+nav .loginSignup {
   width: 20%;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-nav .loginSignup button{
+nav .loginSignup button {
   text-transform: capitalize;
   border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 15px;
 }
-nav .loginSignup button:nth-child(1){
+nav .loginSignup button:hover {
+  opacity: 0.8;
+}
+nav .loginSignup button:nth-child(1) {
   background-color: transparent;
-  border: 1px solid ;
-  padding: 10px;
+  border: 1px solid #888;
 }
-nav .loginSignup button:nth-child(2){
+nav .loginSignup button:nth-child(2) {
   background-color: rgb(1, 1, 137);
-  border: 0 ;
+  border: 0;
   color: #fff;
-  padding: 10px;
 }
-.search-input input
-{
+.search-input {
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  display: flex;
+  border: 1px solid #888;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #888 ;
-  width: 100%;
-  outline: none;
+  gap: 10px;
 }
-.image-grid img{
+.search-input input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+}
+.image-grid img {
   width: 300px;
   height: 300px;
   border-radius: 10px 10px 0 0;
   object-fit: cover;
-
 }
-.image-grid{
+.image-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -65,18 +75,41 @@ nav .loginSignup button:nth-child(2){
   justify-content: center;
   align-items: flex-start;
 }
-.flex{
+.flex {
   display: flex;
   flex-direction: column;
   width: 300px;
+  position: relative;
   overflow: hidden;
   box-shadow: 1px 1px 10px 5px #1e1e1e36;
   border-radius: 10px;
 }
-.alt_description{
+.alt_description {
   padding: 10px;
   background-color: #fff;
 }
-
-
-/* hi */
+.dragIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(45deg, transparent 20%, #000000c4);
+  padding: 10px;
+}
+@media (max-width: 768px) {
+  nav{
+    gap: 10px;
+  }
+  .logoText{
+    display: none;
+  }
+  nav .loginSignup{
+    width: auto;
+    gap: 5px;
+  }
+  nav .loginSignup button{
+    padding: 5px 10px;
+  }
+  .search-input {
+    padding: 7````px;
+  }
+}
