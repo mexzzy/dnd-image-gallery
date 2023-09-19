@@ -3,14 +3,14 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BiGridVertical } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
-import logo from "../images/dnd.jpg"
+import logo from "../images/dnd.jpg";
 
 function Home() {
   const [query, setQuery] = useState("");
   const [searchImage, setSearchImage] = useState([]);
-  const [showSearchResults, setShowSearchResults] = useState(false); 
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
-  const API_KEY = "G-oZXsBPZOUB18De3CmvIPUPwS_x_6yFOI0CjWTwFVg";
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const API_URL_SEARCH = "https://api.unsplash.com/search/photos";
   const API_URL_PHOTOS = "https://api.unsplash.com/photos";
 
@@ -51,7 +51,7 @@ function Home() {
     if (query !== "") {
       searchImages();
     } else {
-      loadPhotos(); 
+      loadPhotos();
     }
   }, [query]);
 
@@ -80,7 +80,10 @@ function Home() {
   return (
     <div>
       <nav>
-        <span className="logo"><img src={logo} alt="logo" /> <span className="logoText">image-gallery</span></span>
+        <span className="logo">
+          <img src={logo} alt="logo" />
+          <span className="logoText">image-gallery</span>
+        </span>
         <div className="search-input">
           <CiSearch />
           <input
@@ -98,56 +101,66 @@ function Home() {
       <DragDropContext onDragEnd={handleDragDrop}>
         <Droppable droppableId="ROOT" type="group">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="image-grid">
-              {showSearchResults ? (
-                searchImage.map((index, idx) => (
-                  <Draggable draggableId={index.id} key={index.id} index={idx}>
-                    {(provided) => (
-                      <div
-                        className="flex"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <div className="dragIcon">
-                          <BiGridVertical color="#fff" />
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="image-grid"
+            >
+              {showSearchResults
+                ? searchImage.map((index, idx) => (
+                    <Draggable
+                      draggableId={index.id}
+                      key={index.id}
+                      index={idx}
+                    >
+                      {(provided) => (
+                        <div
+                          className="flex"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <div className="dragIcon">
+                            <BiGridVertical color="#fff" />
+                          </div>
+                          <img
+                            src={index.urls.regular}
+                            alt={index.alt_description}
+                          />
+                          <div className="alt_description">
+                            {index.alt_description}
+                          </div>
                         </div>
-                        <img
-                          src={index.urls.regular}
-                          alt={index.alt_description}
-                        />
-                        <div className="alt_description">
-                          {index.alt_description}
+                      )}
+                    </Draggable>
+                  ))
+                : searchImage.map((index, idx) => (
+                    <Draggable
+                      draggableId={index.id}
+                      key={index.id}
+                      index={idx}
+                    >
+                      {(provided) => (
+                        <div
+                          className="flex"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <div className="dragIcon">
+                            <BiGridVertical color="#fff" />
+                          </div>
+                          <img
+                            src={index.urls.regular}
+                            alt={index.alt_description}
+                          />
+                          <div className="alt_description">
+                            {index.alt_description}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))
-              ) : (
-                searchImage.map((index, idx) => (
-                  <Draggable draggableId={index.id} key={index.id} index={idx}>
-                    {(provided) => (
-                      <div
-                        className="flex"
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                      >
-                        <div className="dragIcon">
-                          <BiGridVertical  color="#fff"/>
-                        </div>
-                        <img
-                          src={index.urls.regular}
-                          alt={index.alt_description}
-                        />
-                        <div className="alt_description">
-                          {index.alt_description}
-                        </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))
-              )}
+                      )}
+                    </Draggable>
+                  ))}
               {provided.placeholder}
             </div>
           )}
