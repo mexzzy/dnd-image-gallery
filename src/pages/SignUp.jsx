@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import {UserAuth} from "../context/AuthContext"
+import { UserAuth } from "../context/AuthContext";
 
 function SignUp() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -12,20 +12,20 @@ function SignUp() {
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
-  const navigate = useNavigate()
-  const {createUser} = UserAuth();
+  const navigate = useNavigate();
+  const { createUser } = UserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('')
+    setError("");
     try {
-        await createUser(email, password);
-        navigate("/")
+      await createUser(email, password);
+      navigate("/");
     } catch (e) {
-        setError(e.message)
-        console.log(e.message)
+      setError(e.message);
+      return;
     }
-  }
+  };
   return (
     <div>
       <div className="authContainer">
@@ -38,6 +38,7 @@ function SignUp() {
             <div className="inputContainer">
               <input
                 type="email"
+                required
                 placeholder="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -45,7 +46,7 @@ function SignUp() {
 
             <div className="inputContainer">
               <input
-              required
+                required
                 type={passwordVisible ? "text" : "password"}
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -56,6 +57,7 @@ function SignUp() {
             </div>
             <button type="submit">SignUp</button>
           </form>
+          {error && <div className="error">{error}</div>}
           <div className="linkText">
             Already have an account? <Link to="/login">Login</Link>
           </div>

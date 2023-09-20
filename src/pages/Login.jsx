@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiEyeOff, FiEye } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 function Login() {
@@ -9,25 +9,24 @@ function Login() {
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const navigate = useNavigate()
-
+  const { signIn } = UserAuth();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
   };
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('')
-    navigate("/")
+    setError("");
     try {
-      await signIn(email,password)
+      await signIn(email, password);
     } catch (e) {
-      setError(e.message)
+      setError(e.message); 
+      return;
     }
-  }
+    
+  };
 
-  const { signIn } = UserAuth();
   return (
     <div>
       <div className="authContainer">
@@ -38,10 +37,16 @@ function Login() {
           </span>
           <form onSubmit={handleSubmit}>
             <div className="inputContainer">
-              <input type="email" placeholder="email"  onChange={(e) => setEmail(e.target.value)}/>
+              <input
+                type="email"
+                placeholder="email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="inputContainer">
               <input
+                required
                 type={passwordVisible ? "text" : "password"}
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -52,6 +57,7 @@ function Login() {
             </div>
             <button type="submit">Login</button>
           </form>
+          {error && <div className="error">{error}</div>} 
           <div className="linkText">
             Don't have an account yet? <Link to="/signup">SignUp</Link>
           </div>
