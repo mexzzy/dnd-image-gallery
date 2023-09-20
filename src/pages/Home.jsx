@@ -118,12 +118,9 @@ function Home() {
           />
         </div>
         {user ? (
-          <div className="emailFlex">
-            {user.email}{" "}
-            <button className="logout" onClick={handleLogout}>
-              logout
-            </button>
-          </div>
+          <button className="logout" onClick={handleLogout}>
+            logout
+          </button>
         ) : (
           <div className="loginSignup">
             <Link to="/login">

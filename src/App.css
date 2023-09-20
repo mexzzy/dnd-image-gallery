@@ -78,9 +78,6 @@ button:hover {
   border-radius: 5px;
   gap: 10px;
 }
-.emailFlex{
-  display: flex;
-}
 .search-input input {
   width: 100%;
   border: 0;
