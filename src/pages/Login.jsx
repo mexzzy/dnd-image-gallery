@@ -42,6 +42,7 @@ function Login() {
                 placeholder="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
               />
             </div>
             <div className="inputContainer">
@@ -50,6 +51,7 @@ function Login() {
                 type={passwordVisible ? "text" : "password"}
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
               />
               <div className="pHideShowIcon" onClick={togglePasswordVisibility}>
                 {passwordVisible ? <FiEyeOff /> : <FiEye />}

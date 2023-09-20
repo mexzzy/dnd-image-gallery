@@ -13,6 +13,7 @@ function SignUp() {
     setPasswordVisible((prevState) => !prevState);
   };
   const navigate = useNavigate();
+  
   const { createUser } = UserAuth();
 
   const handleSubmit = async (e) => {
@@ -41,6 +42,7 @@ function SignUp() {
                 required
                 placeholder="email"
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
               />
             </div>
 
@@ -50,6 +52,7 @@ function SignUp() {
                 type={passwordVisible ? "text" : "password"}
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
               />
               <div className="pHideShowIcon" onClick={togglePasswordVisibility}>
                 {passwordVisible ? <FiEyeOff /> : <FiEye />}
