@@ -36,15 +36,37 @@ nav .loginSignup button {
   text-transform: capitalize;
   border-radius: 5px;
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 7px 12px;
 }
 button:hover {
   opacity: 0.8;
 }
-nav .loginSignup button {
+.login {
+  background-color: #fff;
+  border: 1px solid  rgb(1, 1, 137);
+  color: rgb(1, 1, 137);
+  text-transform: capitalize;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 7px 12px;
+}
+.logout {
+  background-color: #fff;
+  border: 1px solid #ff8b8bcd;
+  color: #ff2828;
+  text-transform: capitalize;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 7px 12px;
+}
+.signup  {
   background-color: rgb(1, 1, 137);
   border: 0;
   color: #fff;
+  text-transform: capitalize;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 7px 12px;
 }
 .search-input {
   align-items: center;
@@ -55,6 +77,9 @@ nav .loginSignup button {
   padding: 10px;
   border-radius: 5px;
   gap: 10px;
+}
+.emailFlex{
+  display: flex;
 }
 .search-input input {
   width: 100%;
@@ -89,7 +114,7 @@ nav .loginSignup button {
   display: flex;
   flex-direction: column;
   box-shadow: 1px 1px 10px 5px transparent;
-  gap: 10px;
+  gap: 5px;
 }
 .flex :hover ~ .alt_description {
   opacity: 1;
@@ -117,6 +142,7 @@ nav .loginSignup button {
 @media (max-width: 768px) {
   nav {
     gap: 10px;
+    padding: 10px;
   }
   .logoText {
     display: none;
@@ -125,14 +151,36 @@ nav .loginSignup button {
     width: auto;
     gap: 5px;
   }
-  nav .loginSignup button {
-    padding: 5px 10px;
-  }
   .search-input {
     padding: 7px;
   }
+  nav .logo img {
+    width: 40px;
+  }
+  .note{
+    width: 100%;
+  }
 }
-
+.noteFlex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.note{
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(212, 248, 212, 0.415);
+  border: 1px dashed rgba(4, 101, 4, 0.757);
+  margin: 15px;
+  width: 400px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.error {
+  background-color: rgba(255, 59, 59, 0.372);
+  padding: 5px;
+}
 /*  */
 .authContainer {
   display: flex;
@@ -141,7 +189,7 @@ nav .loginSignup button {
   height: 100vh;
 }
 .authWrapper {
-  padding: 2% 1%;
+  padding: 20px;
   box-shadow: 1px 1px 20px 2px #888888a0;
   border-radius: 10px;
   display: flex;
@@ -170,7 +218,7 @@ nav .loginSignup button {
 form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 form .inputContainer {
   padding: 10px;
