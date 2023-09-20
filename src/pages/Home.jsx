@@ -3,7 +3,7 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BiGridVertical } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
-import { FiInfo } from "react-icons/fi";
+import { FiInfo, FiXSquare } from "react-icons/fi";
 import logo from "../images/dnd.jpg";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -100,6 +100,13 @@ function Home() {
       console.log(e.message);
     }
   };
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+  const handleCancelClick = () => {
+    setQuery("");
+  };
+
   return (
     <div>
       {errors && <div className="error">Connect to the Internet</div>}
@@ -114,8 +121,11 @@ function Home() {
             type="text"
             placeholder="Search for images by tag..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleInputChange}
           />
+          {query && (
+            <FiXSquare size={22} onClick={handleCancelClick} color="#540404" />
+          )}
         </div>
         {user ? (
           <button className="logout" onClick={handleLogout}>
